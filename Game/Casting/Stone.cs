@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using System.Collections;
+using Unit04.Game.Casting;
+using Unit04.Game.Services;
+
 namespace Unit04.Game.Casting
 {
     /// <summary>
@@ -15,6 +20,35 @@ namespace Unit04.Game.Casting
         /// </summary>
         public Stone()
         {
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void SetRandomType(Stone stone, int rand1, int rand2)
+        {
+            // randomly decide if stone is gem or rock
+            string text = "";
+            int artX = 0;
+            int artY = 0;
+            if (rand1 % 3 == 1) {
+                text = "*";
+                if (rand2 % 3 == 1) {
+                    artY = 3;
+                }
+                else {
+                    artY = 5;
+                }
+            }
+            else {
+                text = "O";
+                artY = 5;
+            }
+
+            // Set velocity and text according to type
+            Point velocity = new Point(artX, artY);
+            stone.SetVelocity(velocity);
+            stone.SetText(text);
         }
 
         /// <summary>

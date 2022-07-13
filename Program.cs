@@ -55,30 +55,7 @@ namespace Unit04
             Random random = new Random();
             for (int i = 0; i < DEFAULT_STONES; i++)
             {
-                /// randomly decide if stone is gem or rock
-                int rand_int = random.Next(1, 99);
-                string text = "";
-                int artX = 0;
-                int artY = 0;
-                if (rand_int % 3 == 1)
-                {
-                    text = "*";
-                    rand_int = random.Next(1, 99);
-                    if (rand_int % 3 == 1)
-                    {
-                        artY = 3;
-                    }
-                    else
-                    {
-                        artY = 5;
-                    }
-                    
-                }
-                else
-                {
-                    text = "O";
-                    artY = 5;
-                }
+                Stone stone = new Stone();
 
                 int x = random.Next(1, COLS);
                 int y = random.Next(1, ROWS);
@@ -90,13 +67,13 @@ namespace Unit04
                 int b = random.Next(0, 256);
                 Color color = new Color(r, g, b);
 
-                Stone stone = new Stone();
-                stone.SetText(text);
+                int rand1 = random.Next(1, 99);
+                int rand2 = random.Next(1, 99);
+
+                stone.SetRandomType(stone, rand1, rand2);
                 stone.SetFontSize(FONT_SIZE);
                 stone.SetColor(color);
                 stone.SetPosition(position);
-                Point velocity = new Point(artX, artY);
-                stone.SetVelocity(velocity);
                 cast.AddActor("stones", stone);
             }
 
