@@ -57,23 +57,10 @@ namespace Unit04
             {
                 Stone stone = new Stone();
 
-                int x = random.Next(1, COLS);
-                int y = random.Next(1, ROWS);
-                Point position = new Point(x, y);
-                position = position.Scale(CELL_SIZE);
-
-                int r = random.Next(0, 256);
-                int g = random.Next(0, 256);
-                int b = random.Next(0, 256);
-                Color color = new Color(r, g, b);
-
-                int rand1 = random.Next(1, 99);
-                int rand2 = random.Next(1, 99);
-
-                stone.SetRandomType(stone, rand1, rand2);
+                stone.SetRandomColor(stone);
+                stone.SetRandomPosition(stone, CELL_SIZE, ROWS, COLS);
+                stone.SetRandomType(stone);
                 stone.SetFontSize(FONT_SIZE);
-                stone.SetColor(color);
-                stone.SetPosition(position);
                 cast.AddActor("stones", stone);
             }
 

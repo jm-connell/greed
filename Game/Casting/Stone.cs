@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Collections;
+using System;
 using Unit04.Game.Casting;
 using Unit04.Game.Services;
 
@@ -23,14 +22,18 @@ namespace Unit04.Game.Casting
         }
 
         /// <summary>
-        ///
+        /// Sets stone object to a random type
         /// </summary>
-        public void SetRandomType(Stone stone, int rand1, int rand2)
+        public void SetRandomType(Stone stone)
         {
             // randomly decide if stone is gem or rock
+            Random random = new Random();
+            int rand1 = random.Next(1, 99);
+            int rand2 = random.Next(1, 99);
             string text = "";
             int artX = 0;
             int artY = 0;
+
             if (rand1 % 3 == 1) {
                 text = "*";
                 if (rand2 % 3 == 1) {
@@ -49,6 +52,32 @@ namespace Unit04.Game.Casting
             Point velocity = new Point(artX, artY);
             stone.SetVelocity(velocity);
             stone.SetText(text);
+        }
+
+        /// <summary>
+        /// Sets random position for stone
+        /// </summary>
+        public void SetRandomPosition(Stone stone, int CELL_SIZE, int ROWS, int COLS)
+        {
+            Random random = new Random();
+            int x = random.Next(1, COLS);
+            int y = random.Next(1, ROWS);
+            Point position = new Point(x, y);
+            position = position.Scale(CELL_SIZE);
+            stone.SetPosition(position);
+        }
+
+        /// <summary>
+        /// Sets random stone color
+        /// </summary>
+        public void SetRandomColor(Stone stone)
+        {
+            Random random = new Random();
+            int r = random.Next(0, 256);
+            int g = random.Next(0, 256);
+            int b = random.Next(0, 256);
+            Color color = new Color(r, g, b);
+            stone.SetColor(color);
         }
 
         /// <summary>
