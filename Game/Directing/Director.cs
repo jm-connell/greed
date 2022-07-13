@@ -45,51 +45,38 @@ namespace Unit04.Game.Directing
         }
 
         /// <summary>
-        /// Gets directional input from the keyboard and applies it to the robot.
+        /// Gets directional input from the keyboard and applies it to the player.
         /// </summary>
         /// <param name="cast">The given cast.</param>
         private void GetInputs(Cast cast)
         {
-            Actor robot = cast.GetFirstActor("robot");
+            Actor player = cast.GetFirstActor("player");
             Point velocity = keyboardService.GetDirection();
-            robot.SetVelocity(velocity);     
+            player.SetVelocity(velocity);     
         }
 
         /// <summary>
-        /// Updates the robot's position and resolves any collisions with artifacts.
+        /// Updates the player's position and resolves any collisions with stones.
         /// </summary>
         /// <param name="cast">The given cast.</param>
         private void DoUpdates(Cast cast)
         {
             Actor banner = cast.GetFirstActor("banner");
-            Actor robot = cast.GetFirstActor("robot");
-            List<Actor> artifacts = cast.GetActors("artifacts");
+            Actor player = cast.GetFirstActor("player");
+            List<Actor> stones = cast.GetActors("stones");
 
             string text = $"Score: {_score}";
             banner.SetText(text);
             int maxX = videoService.GetWidth();
             int maxY = videoService.GetHeight();
-            robot.MoveNext(maxX, maxY);
+            player.MoveNext(maxX, maxY);
 
-            foreach (Actor actor in artifacts)
+            foreach (Actor actor in stones)
             {
                 actor.MoveNext(maxX, maxY);
-                if (robot.GetPosition().Equals(actor.GetPosition()))
-                {
-                    Artifact artifact = (Artifact) actor;
-                    if (actor.GetText() == "*")
-                    {
-                        _score += 1;
-                        actor.SetText("");
-                    }
-                    else if (actor.GetText() == "O")
-                    {
-                        _score -= 1;
-                        actor.SetText("");
-                    }
+                _score = actor.UpdateScore(_score, actor, player);
                 }
-            } 
-        }
+            }
 
         /// <summary>
         /// Draws the actors on the screen.

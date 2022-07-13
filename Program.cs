@@ -23,7 +23,7 @@ namespace Unit04
         private static int ROWS = 40;
         private static string CAPTION = "Greed";
         private static Color WHITE = new Color(255, 255, 255);
-        private static int DEFAULT_ARTIFACTS = 40;
+        private static int DEFAULT_STONES = 40;
 
 
         /// <summary>
@@ -43,19 +43,19 @@ namespace Unit04
             banner.SetPosition(new Point(CELL_SIZE, 0));
             cast.AddActor("banner", banner);
 
-            // create the robot
-            Actor robot = new Actor();
-            robot.SetText("#");
-            robot.SetFontSize(FONT_SIZE);
-            robot.SetColor(WHITE);
-            robot.SetPosition(new Point(MAX_X / 2, MAX_Y - 15));
-            cast.AddActor("robot", robot);
+            // create the player
+            Actor player = new Actor();
+            player.SetText("#");
+            player.SetFontSize(FONT_SIZE);
+            player.SetColor(WHITE);
+            player.SetPosition(new Point(MAX_X / 2, MAX_Y - 15));
+            cast.AddActor("player", player);
 
-            // create the artifacts
+            // create the stones
             Random random = new Random();
-            for (int i = 0; i < DEFAULT_ARTIFACTS; i++)
+            for (int i = 0; i < DEFAULT_STONES; i++)
             {
-                /// randomly decide if artifact is gem or rock
+                /// randomly decide if stone is gem or rock
                 int rand_int = random.Next(1, 99);
                 string text = "";
                 int artX = 0;
@@ -90,14 +90,14 @@ namespace Unit04
                 int b = random.Next(0, 256);
                 Color color = new Color(r, g, b);
 
-                Artifact artifact = new Artifact();
-                artifact.SetText(text);
-                artifact.SetFontSize(FONT_SIZE);
-                artifact.SetColor(color);
-                artifact.SetPosition(position);
+                Stone stone = new Stone();
+                stone.SetText(text);
+                stone.SetFontSize(FONT_SIZE);
+                stone.SetColor(color);
+                stone.SetPosition(position);
                 Point velocity = new Point(artX, artY);
-                artifact.SetVelocity(velocity);
-                cast.AddActor("artifacts", artifact);
+                stone.SetVelocity(velocity);
+                cast.AddActor("stones", stone);
             }
 
             // start the game

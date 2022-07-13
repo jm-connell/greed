@@ -25,6 +25,24 @@ namespace Unit04.Game.Casting
         {
         }
 
+        public int UpdateScore(int score, Actor actor, Actor player) 
+        {
+            if (player.GetPosition().Equals(actor.GetPosition()))
+            {
+                Stone stone = (Stone) actor;
+                if (actor.GetText() == "*")
+                {
+                    score += 1;
+                    
+                }
+                else if (actor.GetText() == "O")
+                {
+                    score -= 1;
+                }
+            }
+            return score;
+        }
+
         /// <summary>
         /// Gets the actor's color.
         /// </summary>
