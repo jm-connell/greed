@@ -15,7 +15,10 @@ namespace Unit04.Game.Directing
     {
         private KeyboardService keyboardService = null;
         private VideoService videoService = null;
-        private int _score = 0;
+        private int _score = 0;    
+        private static int CELL_SIZE = 15;
+        private static int COLS = 60;
+        private static int ROWS = 40;
 
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
@@ -73,10 +76,16 @@ namespace Unit04.Game.Directing
 
             foreach (Actor actor in stones)
             {
+                Stone stone = (Stone) actor;
                 actor.MoveNext(maxX, maxY);
+                int previousScore = _score;
                 _score = actor.UpdateScore(_score, actor, player);
+
+                if (previousScore != _score){
+                    stone.SetRandomPosition(stone, CELL_SIZE, ROWS, COLS);
                 }
             }
+        }
 
         /// <summary>
         /// Draws the actors on the screen.
